@@ -15,18 +15,19 @@
 ### Strategy Pattern
 - What is it? 
 		
-	Also known as the policy pattern, It allows a program to dynamically decide on its behaviour during runtime by grouping them using interfaces
+   - Also known as the policy pattern, It allows a program to dynamically decide on its behaviour during runtime by grouping them using interfaces
 
 - When, how and why?
 
- - When inheritence doesn't seem to work where making a change to a hierachy tree (in terms of new or a change in methods) would have too much affect on existing code. You can choose to then compose the behaviour (algorithm) and dynamically set it during runtime. In this case you would 'Have a' behaviour stored as a member property to which you could inject/contruct/set. This composed type would typically be an Interface and you would implement a set of possible behavoiurs to use.
+   - When inheritence doesn't seem to work where making a change to a hierachy tree (in terms of new or a change in methods) would have too much affect on existing code. You can choose to then compose the behaviour (algorithm) and dynamically set it during runtime. In this case you would 'Have a' behaviour stored as a member property to which you could inject/contruct/set. This composed type would typically be an Interface and you would implement a set of possible behavoiurs to use.
 
---- Pro's con's
-		- Pro's you can change a types behaviour at run time by setting it. 
-		- More flexible than inheritance
-		- Group behavours or algorithms by interfaces
+- Pro's con's
 
---- Example
+   - Pro's you can change a types behaviour at run time by setting it. 
+   - More flexible than inheritance
+   - Group behavours or algorithms by interfaces
+
+- Example
 
 	abstract class Animal {
 		private Noise behaviour;
@@ -68,27 +69,31 @@
 
 
 ### Observer Pattern
---- What is it? 
-		A pattern that defines a one to many relationship between an observable object and many observers(subscribers) such that when something happens that the observerable knows about (state or otherwise) it notifies the observers. Think about the publisher/subscription model of a magazine and thats pretty much it
---- How, when and why?
-		- The observable will hold a collection of registered observers (typically by a collection of the observers interface). These observers can register by using the a register method on the observable (likewise unregister when it no longer needs to know of updates). 
-		- When something happens on the observable, an update method will run that will iterate through the observers and run an update method on them.
-		- There are two modes in which the Observer pattern can run (push or pull).
-		- When an update occurs, the observable can push the updated info (during the update) or the observers and pull the info from a reference to the observable that they hold.
-		- You would use this pattern when there are many dependant objects looking at a single thing, all wanting to be updated when something happens
-		- You can use the JDK's Observer class but because its a concrete class you have to extend and therefore cannot inherit from anything else.
-		- When using the JDK Observer class, you must use the setChanged method to true as it will not notify the observer if its false. Its a guard as not all updates need to update all observers
+- What is it? 
 
---- Pro's con's
-		- Could be difficult to follow if you don't know what it is before hand
-		- JDK Observer is a class and some methods are protected meaning you need to open them up if you wish to call them
-		- Objects and register/unregister at runtime
-		- Obervable and oberver are loosly coupled as they only know about the other via interfaces and updating/adding the code to either wont have any impact of the other
-		- Flexible as it can be either pull or push
-		- Doesnt always depend on the order of notifications
-		- Possible that code in an observer can blow up the chain of observers during a notify
+   - A pattern that defines a one to many relationship between an observable object and many observers(subscribers) such that when something happens that the observerable knows about (state or otherwise) it notifies the observers. Think about the publisher/subscription model of a magazine and thats pretty much it
+
+- How, when and why?
+
+   - The observable will hold a collection of registered observers (typically by a collection of the observers interface). These observers can register by using the a register method on the observable (likewise unregister when it no longer needs to know of updates).
+   - When something happens on the observable, an update method will run that will iterate through the observers and run an update method on them.
+   - There are two modes in which the Observer pattern can run (push or pull).
+   - When an update occurs, the observable can push the updated info (during the update) or the observers and pull the info from a reference to the observable that they hold.
+   - You would use this pattern when there are many dependant objects looking at a single thing, all wanting to be updated when something happens
+   - You can use the JDK's Observer class but because its a concrete class you have to extend and therefore cannot inherit from anything else.
+   - When using the JDK Observer class, you must use the setChanged method to true as it will not notify the observer if its false. Its a guard as not all updates need to update all observers
+
+- Pro's con's
+
+   - Could be difficult to follow if you don't know what it is before hand
+   - JDK Observer is a class and some methods are protected meaning you need to open them up if you wish to call them
+   - Objects and register/unregister at runtime
+   - Obervable and oberver are loosly coupled as they only know about the other via interfaces and updating/adding the code to either wont have any impact of the other
+   - Flexible as it can be either pull or push
+   - Doesnt always depend on the order of notifications
+   - Possible that code in an observer can blow up the chain of observers during a notify
 		
---- Example
+- Example
 
 	interface Observable{
 		addObserver(Observer ob);
