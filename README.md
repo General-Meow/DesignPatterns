@@ -324,15 +324,21 @@
 		//or
 		private final static MySingleton INSTANCE = new MySingleton(); //inline instantiation
 
-		public static MySingleton getInstance(){ //either synchronise the entire method
+		public static MySingleton getInstance(){ //if not using inline instantiation either synchronise the entire method
 			if(INSTANCE == null){
-				synchronise(MySingleton.class){
+				synchronise(MySingleton.class){  //or synchronise here
 					if(INSTANCE == null){
 						INSTANCE = new MySingleton();
 					}
 				}
 			}
 
+			return INSTANCE;
+		}
+
+		//or
+
+		public static MySingleton getInstance(){
 			return INSTANCE;
 		}
 	}
