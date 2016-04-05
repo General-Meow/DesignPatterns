@@ -14,7 +14,8 @@
 
 ### Strategy Pattern
 - What is it? 
-		Also known as the policy pattern, It allows a program to dynamically decide on its behaviour during runtime by grouping them using interfaces
+		
+	Also known as the policy pattern, It allows a program to dynamically decide on its behaviour during runtime by grouping them using interfaces
 
 --- When, how and why?
 		- When inheritence doesn't seem to work where making a change to a hierachy tree (in terms of new or a change in methods) would have too much affect on existing code. You can choose to then compose the behaviour (algorithm) and dynamically set it during runtime. In this case you would 'Have a' behaviour stored as a member property to which you could inject/contruct/set. This composed type would typically be an Interface and you would implement a set of possible behavoiurs to use.
