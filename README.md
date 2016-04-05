@@ -28,7 +28,7 @@
    - Group behavours or algorithms by interfaces
 
 - Example
-
+```java
 	abstract class Animal {
 		private Noise behaviour;
 	
@@ -61,7 +61,7 @@
 	Noise howl = new Howl();
 	dog.setMakeNoise(howl);
 	wolf.setMakeNoise(howl);
-
+```
 
 
 
@@ -94,7 +94,7 @@
    - Possible that code in an observer can blow up the chain of observers during a notify
 		
 - Example
-
+```java
 	interface Observable{
 		addObserver(Observer ob);
 		removeObserver(Observer ob);
@@ -132,30 +132,33 @@
 			System.out.println("just got this update: " + observableState);
 		}
 	}
-
+```
 
 
 
 
 ### Decorator Pattern
---- What is it? 
-		A pattern that attaches additional responsibility / behaviour to an object dynamically. Its a flexible alternative to inheritence that allows you to extend functionality
+- What is it? 
 
---- How, when and why?
-		- Sometimes inheritence is not the right choice as it could lead to class explosions. (many classes extending a single or few classes) Or when making a change to a base class makes too much of an impact to child classes
-		- Decorators have the same base class / interface as the objects they decorate
-		- You take the base class, extend it as a base class decorator and have classes extend the decorator and compose the base class then decorate the interested methods
-		- Decorating a method can happen before or after calling the decorated method
-		- You can have many layers of decorators
-		- Decorators should be transparent
+   - A pattern that attaches additional responsibility / behaviour to an object dynamically. Its a flexible alternative to inheritence that allows you to extend functionality
 
---- Pro's con's
-		- Can be confusing as alot of small classes will need to be created
-		- Confusing if you see many nested instantiated classes within constructors (look at the InputStream from JDK)
-		- Adheres to open to extension and close to modification
+- How, when and why?
+
+   - Sometimes inheritence is not the right choice as it could lead to class explosions. (many classes extending a single or few classes) Or when making a change to a base class makes too much of an impact to child classes
+   - Decorators have the same base class / interface as the objects they decorate
+   - You take the base class, extend it as a base class decorator and have classes extend the decorator and compose the base class then decorate the interested methods
+   - Decorating a method can happen before or after calling the decorated method
+   - You can have many layers of decorators
+   - Decorators should be transparent
+
+- Pro's con's
+
+   - Can be confusing as alot of small classes will need to be created
+   - Confusing if you see many nested instantiated classes within constructors (look at the InputStream from JDK)
+   - Adheres to open to extension and close to modification
 		
---- Example
-
+- Example
+```java
 	abstract class Meal{
 		double cost();
 	}
@@ -184,32 +187,36 @@
 		Meal composedMeal;
 		...
 	}
-
+```
 
 
 
 ### Factory Pattern
---- What is it? 
-		- There are two factory patterns. Factory Method & Abstract Factory (There is a third called the simple factory, just like abstract but is just a single non abstract class)
-		- Abstract factory, defines an interface for a group of related classes without specifying the contreate classes
-		- Factory method, define an interface for creating an object but let the subclass define what and how its created
-		- Abstract factory looks like it contains many factory methods
+- What is it? 
 
---- How, when and why?
-		- Factory method has an abstract class that uses an abstract method for instantiating an object, subclasses are then used to create those objects
-		- Abstract Factory defines an abstract class that defines a set of abstract methods to create a set of classes. its up to the subclass to create these types.
-		- Abstract factory has the clients compose the factories for which the use to instantiate objects while factory method uses inheritence
-		- You start using factories when you notice your duplicating code that instantiates objects
-		- You wrap this in a single interface so that you can maintain the instatiation of objects in one place
-		- Factories promote loose coupling as you can hide the instantiation of concreate classes in the factories
-		- Use it when you want to encapsulate object creation
+   - There are two factory patterns. Factory Method & Abstract Factory (There is a third called the simple factory, just like abstract but is just a single non abstract class)
+   - Abstract factory, defines an interface for a group of related classes without specifying the contreate classes
+   - Factory method, define an interface for creating an object but let the subclass define what and how its created
+   - Abstract factory looks like it contains many factory methods
+
+- How, when and why?
+
+   - Factory method has an abstract class that uses an abstract method for instantiating an object, subclasses are then used to create those objects
+   - Abstract Factory defines an abstract class that defines a set of abstract methods to create a set of classes. its up to the subclass to create these types.
+   - Abstract factory has the clients compose the factories for which the use to instantiate objects while factory method uses inheritence
+   - You start using factories when you notice your duplicating code that instantiates objects
+   - You wrap this in a single interface so that you can maintain the instatiation of objects in one place
+   - Factories promote loose coupling as you can hide the instantiation of concreate classes in the factories
+   - Use it when you want to encapsulate object creation
 
 
---- Pro's con's
-		- Loose coupling of the instantiated classes and they are created in the factory and use the interfaces of the types
-		- Can be harder to read as object instances are hidden behind and interface or abstract class
+- Pro's con's
+
+   - Loose coupling of the instantiated classes and they are created in the factory and use the interfaces of the types
+   - Can be harder to read as object instances are hidden behind and interface or abstract class
 		
---- Example
+- Example
+```java
 		- factory method
 
 		abstract class GlassShop{
@@ -243,8 +250,8 @@
 			bottleShop.sellBeverage(); //returns a winebottle
 			jarShop.sellBeverage(); // returns a jar
 		}
-
-
+```
+```java
 		- abstract factory ----------------------------
 
 		abstract class FastFoodShop{
@@ -280,24 +287,27 @@
 				shop.creatMainFood()....;
 			}
 		}
-
+```
 
 
 
 ### Singleton Pattern
---- What is it? 
-		- It's a pattern that allows for only one instance of a class
+- What is it? 
 
---- How, when and why?
-		- Create a class that has a static reference to an instance of itself, have a private constructor and then a method (getInstance()) to checks to see if the static reference object exists, if not create and return it.
-		- You can create a new instance within the static reference line. This ensures that on class loading time, the instance is instantiated
-		- You use it in instances where it makes sense to only have one instance, such as configuration, helper objects that don't have state
+   - It's a pattern that allows for only one instance of a class
 
---- Pro's con's
-		- Lower memory footprint
-		- Pretty much against the one class one purpose principle
-		- Doesn't seem to work well with inheritence
-		-
+- How, when and why?
+
+   - Create a class that has a static reference to an instance of itself, have a private constructor and then a method (getInstance()) to checks to see if the static reference object exists, if not create and return it.
+   - You can create a new instance within the static reference line. This ensures that on class loading time, the instance is instantiated
+   - You use it in instances where it makes sense to only have one instance, such as configuration, helper objects that don't have state
+
+- Pro's con's
+
+   - Lower memory footprint
+   - Pretty much against the one class one purpose principle
+   - Doesn't seem to work well with inheritence
+
 		
 --- Example
 
