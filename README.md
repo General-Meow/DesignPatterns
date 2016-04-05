@@ -13,7 +13,7 @@
 ## Design patterns
 
 ### Strategy Pattern
---- What is it? 
+- What is it? 
 		Also known as the policy pattern, It allows a program to dynamically decide on its behaviour during runtime by grouping them using interfaces
 
 --- When, how and why?
