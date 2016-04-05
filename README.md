@@ -300,18 +300,44 @@
 
    - Create a class that has a static reference to an instance of itself, have a private constructor and then a method (getInstance()) to checks to see if the static reference object exists, if not create and return it.
    - You can create a new instance within the static reference line. This ensures that on class loading time, the instance is instantiated
+   - If the instantiatation of the object is an issue (you might not need it all the time, or at startup) then you must wrap the getInstance() method in either a synchronise block (can have performance issues as you need to lock on the class) or you can have a 'double check lock' where you check if null, synchronise, and check for null again.
    - You use it in instances where it makes sense to only have one instance, such as configuration, helper objects that don't have state
+
 
 - Pro's con's
 
    - Lower memory footprint
    - Pretty much against the one class one purpose principle
    - Doesn't seem to work well with inheritence
+   - Can cause multithreading issues if you don't wrap the getInstance() method in a synchronise
+   - It will not work well for systems with multiple classloaders as the instances are bound to a class and the classes will be loaded mulitple times(???)
+   - Considered as an anti pattern as people misuse it (make it contain state)
 
-		
+	
 --- Example
 
+```java
 
+	class MySingleton{
+		private MySingleton(){}
+		private static MySingleton INSTANCE = null;
+		//or
+		private final static MySingleton INSTANCE = new MySingleton(); //inline instantiation
+
+		public static MySingleton getInstance(){ //either synchronise the entire method
+			if(INSTANCE == null){
+				synchronise(MySingleton.class){
+					if(INSTANCE == null){
+						INSTANCE = new MySingleton();
+					}
+				}
+			}
+
+			return INSTANCE;
+		}
+	}
+
+```
 
 
 
