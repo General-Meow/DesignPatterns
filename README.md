@@ -1,12 +1,12 @@
 #Head first design patterns
 
 ## Design Principles
--- Identify areas of a system vary and seperate them from areas that stay the same
--- Program to an interface and not to an implementation
--- Favour composition over inheritence (inhertance is less flexible and has some draw backs, like no runtime behaviour changes)
--- Strive for loosly coupled designs for objects that interact
--- Classes should be open for extension and closed to modification
--- Depend on Abstracts and not on concreate implementations - aka dependency inversion principle (the inversion bit means that your typical thinking is inverted in that you now depend on abstract high level components)
+- Identify areas of a system vary and seperate them from areas that stay the same
+- Program to an interface and not to an implementation
+- Favour composition over inheritence (inhertance is less flexible and has some draw backs, like no runtime behaviour changes)
+- Strive for loosly coupled designs for objects that interact
+- Classes should be open for extension and closed to modification
+- Depend on Abstracts and not on concreate implementations - aka dependency inversion principle (the inversion bit means that your typical thinking is inverted in that you now depend on abstract high level components)
 
 
 
@@ -17,7 +17,7 @@
 		
 	Also known as the policy pattern, It allows a program to dynamically decide on its behaviour during runtime by grouping them using interfaces
 
---- When, how and why?
+- When, how and why?
 		- When inheritence doesn't seem to work where making a change to a hierachy tree (in terms of new or a change in methods) would have too much affect on existing code. You can choose to then compose the behaviour (algorithm) and dynamically set it during runtime. In this case you would 'Have a' behaviour stored as a member property to which you could inject/contruct/set. This composed type would typically be an Interface and you would implement a set of possible behavoiurs to use.
 
 --- Pro's con's
