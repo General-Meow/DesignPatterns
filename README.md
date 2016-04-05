@@ -1,6 +1,6 @@
-Head first design patterns
+#Head first design patterns
 
-- Design Principles
+## Design Principles
 -- Identify areas of a system vary and seperate them from areas that stay the same
 -- Program to an interface and not to an implementation
 -- Favour composition over inheritence (inhertance is less flexible and has some draw backs, like no runtime behaviour changes)
@@ -10,9 +10,9 @@ Head first design patterns
 
 
 
-- Design patterns
+## Design patterns
 
--- Strategy Pattern
+### Strategy Pattern
 --- What is it? 
 		Also known as the policy pattern, It allows a program to dynamically decide on its behaviour during runtime by grouping them using interfaces
 
@@ -65,7 +65,7 @@ Head first design patterns
 
 
 
--- Observer Pattern
+### Observer Pattern
 --- What is it? 
 		A pattern that defines a one to many relationship between an observable object and many observers(subscribers) such that when something happens that the observerable knows about (state or otherwise) it notifies the observers. Think about the publisher/subscription model of a magazine and thats pretty much it
 --- How, when and why?
@@ -130,7 +130,7 @@ Head first design patterns
 
 
 
--- Decorator Pattern
+### Decorator Pattern
 --- What is it? 
 		A pattern that attaches additional responsibility / behaviour to an object dynamically. Its a flexible alternative to inheritence that allows you to extend functionality
 
@@ -181,7 +181,7 @@ Head first design patterns
 
 
 
--- Factory Pattern
+### Factory Pattern
 --- What is it? 
 		- There are two factory patterns. Factory Method & Abstract Factory (There is a third called the simple factory, just like abstract but is just a single non abstract class)
 		- Abstract factory, defines an interface for a group of related classes without specifying the contreate classes
@@ -277,7 +277,7 @@ Head first design patterns
 
 
 
--- Singleton Pattern
+### Singleton Pattern
 --- What is it? 
 		- It's a pattern that allows for only one instance of a class
 
