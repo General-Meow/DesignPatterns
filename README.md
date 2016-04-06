@@ -348,6 +348,83 @@
 
 
 
+### Command Pattern
+- What is it? 
+
+   - Allows you to encapsulate a request (command) as an object and paramatize clients with these requests. Which in tern could be invoked by the client or something else
+   - Allows you to queue, log and undo requests
+   - Think of the Diner example where the client (customer) creates the command (order), sends it to the invoker (waitress) which the calls the execute method (order up) on the receiver (cook)
+   - 
+
+- How, when and why?
+
+   - Implement a command interface that has at least a public execute method. compose an object into the implementation. have the execute method run a single specific method on the composed object
+   - Use it when you wish to decouple the client that is creating it to the invoker thats using it. i.e multiple generators creating commands and sending them to a thread pool to have threads call execute on them
+   - Commands should have a single purpose
+   - Macro commands are commands that contain many commands which allow it to run them in order
+   - Undo funcationality
+
+- Pro's con's
+
+   - Decoupling
+   - Commands can be run at a later date
+   - Commands can be batched and run over a large dataset like patches which allow it to create lesser snapshots
+	
+--- Example
+
+```java
+
+	class Command{
+		void execute();
+	}
+
+	class CalculateHighRiskCommand(){
+		int riskAmount = 10000000;
+		RiskReceiver receiver;
+		public CalculateHighRiskCommand(RiskReceiver receiver){
+			this.receiver = receiver;
+		}
+
+		void execute(){
+			receiver.calculateRisk(riskAmount);
+		}
+	}
+
+	class RiskReceiver{
+		void calculateRisk(int risk);
+	}
+
+	class HighRiskPunterReceiver{
+		void calculateRisk(int risk){
+			if(risk * specialFormula < acceptableRisk)
+			{
+				buyIntoIt();
+			}
+		}
+	}
+
+	class Invoker{
+		runRisks();
+	}
+
+	class StockBroker{
+		Command[] commands
+		runRisk(int i){
+			commands[i].execute();
+		}
+	}
+
+	class Client{
+		void main(){
+			RiskReceiver receiver = new HighRiskPunterRecevier();
+			Command command = new CalculateHighRiskCommand(receiver);
+
+			Invoker invoker = new StockBroker(Lists.array(command))
+			invoker.runRisk(0);
+		}
+	}
+
+```
 
 
 
