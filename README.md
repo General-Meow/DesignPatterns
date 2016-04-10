@@ -314,7 +314,7 @@
    - Considered as an anti pattern as people misuse it (make it contain state)
 
 	
---- Example
+- Example
 
 ```java
 
@@ -371,7 +371,7 @@
    - Commands can be run at a later date
    - Commands can be batched and run over a large dataset like patches which allow it to create lesser snapshots
 	
---- Example
+- Example
 
 ```java
 
@@ -450,7 +450,7 @@
    - Can be quite complex as the number of methods or behaviours could be huge
    - Not always viable as the compsed object might not have the required behaviour for all of the require methods
 	
---- Example
+- Example
 
 ```java
 
@@ -511,19 +511,46 @@
 ### Facade Pattern
 - What is it? 
 
-   - 
+   - A unified interface to a set of interfaces from an underlying subsystem.
+   - A more simple interface that makes working with the subsystem alot easier.
+   - A layer that ochestracts the usage of services
 
 - How, when and why?
 
-   - 
+   - Compose a set of interfaces that work together into a class, have high level (abstract but not in the java sence) methods that combine the usage of methods on each of the composed interfaces
+   - You use the facade to simplify the use of an group of interfaces
+   - It allows a client to know about abstract things which leaves the facade to know about the nitty gritty
 
 - Pro's con's
 
-   - 
+   - Decouples the client code from the underlying subsystem
+   - Can simplify interations - one point of interaction
+   - Improve code refactoing
+   - Doesn't stop the client using the subsystem if needed
 	
---- Example
+- Example
 
 ```java
+
+	class MakeCakefacade{
+		void PrepOven(){
+			oven.switchOn();
+			oven.turnDial();
+		}
+		void mixIngredience(){
+			flourService.pourFlour();
+			eggService.crackEggs();
+			mixerService.mix();
+		}
+	}
+	
+	class CakeClient{
+		void makeCake(){
+			makeCakeService.prepOven();
+			makeCakeService.mixIngredience();
+		}
+	}
+
 ```
 
 
