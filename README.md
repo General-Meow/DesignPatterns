@@ -7,7 +7,7 @@
 - Strive for loosly coupled designs for objects that interact
 - Classes should be open for extension and closed to modification
 - Depend on Abstracts and not on concreate implementations - aka dependency inversion principle (the inversion bit means that your typical thinking is inverted in that you now depend on abstract high level components)
-
+- Principle of least knowledge. - Talk to only your immediate friends. This is basically only call methods on youself, on objects provided to you via a parameter. Try and have your classes import less and know less about other clases.
 
 
 ## Design patterns
@@ -520,6 +520,7 @@
    - Compose a set of interfaces that work together into a class, have high level (abstract but not in the java sence) methods that combine the usage of methods on each of the composed interfaces
    - You use the facade to simplify the use of an group of interfaces
    - It allows a client to know about abstract things which leaves the facade to know about the nitty gritty
+   - Facades are free to add any additional behaviour too (think converter/populators)
 
 - Pro's con's
 
