@@ -363,6 +363,7 @@
    - Commands should have a single purpose
    - Macro commands are commands that contain many commands which allow it to run them in order
    - Undo funcationality
+   - You can implement commands that do nothing, this is done to avoid the use of null and a good starting point for unitialized commands
 
 - Pro's con's
 
@@ -429,8 +430,101 @@
 
 
 
+### Adapter Pattern
+- What is it? 
+
+   - Also known as the wrapper pattern, it converts an interface of a class to another that a client expects. Adapters let classes work together that otherwise wouldn't be able to.
+
+- How, when and why?
+
+   - Compose the object that needs to work with the client (the plug) into the adapter, implement the required interface that the socket requires, translate each method into somthing the plug can do. If the plug cant operate that method, then throw a runtime exception like UnsupportedOperationException.
+   - You use this pattern when you have classes that you can't or don't wish to change/refactor
+   - If you've got classes that you can't change, such as an api class and you don't wish to change the code that will use it, you can use an adapter
+   - There are two types of adapters object and class based.
+   - Object is described above with the use of compose
+   - Class isn't possible in java as it requires you to inherite from multiple classes
+
+- Pro's con's
+
+   - Lets you keep existing code without refactoring
+   - Can be quite complex as the number of methods or behaviours could be huge
+   - Not always viable as the compsed object might not have the required behaviour for all of the require methods
+	
+--- Example
+
+```java
+
+	class SocketUK{
+		UkStylePlug plug;
+		void setPlug();
+		void shortPlug(){
+			plug.short();
+		}
+
+		void powerOn(){
+			plug.switchOn();
+		}
+	}
+
+	interface UkStylePlug{
+		void short();
+	}
+
+	class PlugUK implements UkStylePlug{
+		void switchOn(){}
+		void short(){
+			System.out.println("Fuse is tripped, appliance is ok");
+		}
+	}
+
+	class PlugUS{ //this plug cannot be used with a UK Socket
+		void switchOn(){
+		}
+	}
+
+	class TravelAdapter implments UkStylePlug {
+		PlugUS plug;
+
+		void short(){
+			System.out.println("not doing anything, this might end with the appliance setting on fire!")
+		}
+		void switchOn(){
+			plug.switchOn();
+		}
+	}
+
+	class Client{
+		void main(){
+			SocketUk socket = new SocketUk();
+			socket.setPlug(new PlugUS());
+			socket.switchOn(); //should now call the us plug switch on
+			socket.shortPlug(); 
+		}
+	}
+
+```
 
 
+
+
+
+### Facade Pattern
+- What is it? 
+
+   - 
+
+- How, when and why?
+
+   - 
+
+- Pro's con's
+
+   - 
+	
+--- Example
+
+```java
+```
 
 
 
