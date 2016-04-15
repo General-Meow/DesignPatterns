@@ -8,6 +8,7 @@
 - Classes should be open for extension and closed to modification
 - Depend on Abstracts and not on concreate implementations - aka dependency inversion principle (the inversion bit means that your typical thinking is inverted in that you now depend on abstract high level components)
 - Principle of least knowledge. - Talk to only your immediate friends. This is basically only call methods on youself, on objects provided to you via a parameter. Try and have your classes import less and know less about other clases.
+- Dont call us, we'll call you - Have high level components decide and call low level components
 
 
 ## Design patterns
@@ -547,12 +548,81 @@
 	
 	class CakeClient{
 		void makeCake(){
-			makeCakeService.prepOven();
-			makeCakeService.mixIngredience();
+			makeCakeFacade.prepOven();
+			makeCakeFacade.mixIngredience();
 		}
 	}
 
 ```
+
+
+
+### Template Pattern
+- What is it? 
+
+   - Defines a skeleton of an algorithm in a method which uses steps that can be defined in the class or delegates to a subclass for it
+   - Has optional steps in the form of hooks
+
+- How, when and why?
+
+   - Define a class (can be abstract) that holds a template method (final) that calls a set of other methods (the steps) which can be implements in the current class of in a sublass
+   - Define some steps as hooks that are optional. The class can implement them but leave it empty. These provide place holders for a subclass to do additional work
+   - Use this pattern when you want to define a framework that provides some steps but not all, or all steps and allows it to be overridden
+   - This promotes code reuse as your finding steps that are common and placing them in the parent class
+
+- Pro's con's
+
+   - Code reuse
+   - example of the dont' call us, we'll call you design principle - the parent class decides what to call and when
+   - Can extends as well as override steps of an algorithm
+	
+- Example
+
+```java
+
+	class PizzaMaker{
+		final void makePizza(){ //lock the template down as final
+			preHook();
+			prepareDough();
+			putBaseOn();
+			putToppingsOn();
+			bake();
+			postHook();
+		}
+
+		void preHook(){} //optional steps that can be overridden
+		void postHook(){}
+
+		void prepareDough(){
+			sout("flatten out a base in a circle");
+		}
+		final void putBaseOn(){ //don't allow this step to be overriden
+			sout("spread tomato base");
+		}
+		void toppingsOn(){
+			sout("cheese and ham");
+		}
+		void bake(){
+			sout("bake for 20 mins");
+		}
+	}
+
+	class PepperoniPizzaMake extends PizzaMake{
+		void toppingsOn(){
+			sout("cheese and pepperoni");
+		}
+		void bake(){
+			sout("bake for 30 minutes");
+		}
+		void postHook(){
+			sout("add extra pepperoni");
+		}
+	}
+```
+
+
+
+
 
 
 
