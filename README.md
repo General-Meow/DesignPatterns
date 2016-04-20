@@ -8,7 +8,8 @@
 - Classes should be open for extension and closed to modification
 - Depend on Abstracts and not on concreate implementations - aka dependency inversion principle (the inversion bit means that your typical thinking is inverted in that you now depend on abstract high level components)
 - Principle of least knowledge. - Talk to only your immediate friends. This is basically only call methods on youself, on objects provided to you via a parameter. Try and have your classes import less and know less about other clases.
-- Dont call us, we'll call you - Have high level components decide and call low level components
+- Dont call us, we'll call you - Have high level components decide and call low level components. Helps avoid code rot, spaghetti code.
+- A class should have only one reason to change - More responsibilies of a class the more chance of a change. The more a class deals with one or one set of things the more cohesive it is, if its doing alot of unrelated things then its has low cohesion.
 
 
 ## Design patterns
@@ -620,7 +621,32 @@
 	}
 ```
 
+### Iterator Pattern
+- What is it? 
 
+   - Provides a way to iterate over a single aggregate (collection) without exposing underlying representation (type)
+
+- How, when and why?
+
+   - Using an iterator composes the underlying type keeping count of where it is in the collection. By providing methods like hasNext and next it will be able to walk through the collection
+   - Have the class that contains the collection generate the iterator and provide it to the client
+   - You use this when you have to use the same code to iterate over 2 collection types that cannot or wont change
+   - The JDK provides an iterator interface as well as a ListIterator that allows you to go forward and back
+   - The JDK iterator can also remove elements which will need to shift all elements once used
+   - If you don't want the collection to deal with the iteration then use this pattern
+
+- Pro's con's
+
+   - Simple interface
+   - Could use the enhanced for loop with the collections interface instead (or Collection class)
+	
+- Example
+
+```java
+
+	Just use the JDK iterator
+
+```
 
 
 
