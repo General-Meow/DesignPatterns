@@ -625,11 +625,12 @@
 - What is it? 
 
    - Provides a way to iterate over a single aggregate (collection) without exposing underlying representation (type)
+   - These are known as external iterators. Internal ones are ones that the collections use to iternate internally
 
 - How, when and why?
 
    - Using an iterator composes the underlying type keeping count of where it is in the collection. By providing methods like hasNext and next it will be able to walk through the collection
-   - Have the class that contains the collection generate the iterator and provide it to the client
+   - Have the class that contains the collection generate the iterator and provide it to the client. Done typically via a createIterator method
    - You use this when you have to use the same code to iterate over 2 collection types that cannot or wont change
    - The JDK provides an iterator interface as well as a ListIterator that allows you to go forward and back
    - The JDK iterator can also remove elements which will need to shift all elements once used
@@ -639,6 +640,8 @@
 
    - Simple interface
    - Could use the enhanced for loop with the collections interface instead (or Collection class)
+   - Decouples the client from a collection and makes the client only know about an Iterator
+   - Allows you to iterate over almost any collection type without knowing the type
 	
 - Example
 
@@ -647,6 +650,113 @@
 	Just use the JDK iterator
 
 ```
+
+
+
+### Composite Pattern
+- What is it? 
+
+   - A pattern that stores a group of things in a tree structure and allows you to treat all elements (both nodes and leaves) the same way (uniformly)
+
+- How, when and why?
+
+   - A composite(node) and object(leaf) implement the same interface/abstract class. For methods that don't make sense, you can return null/false or thrown an unsupported exception. The nodes will contain a collection of the same interface type, allowing you to contain more nodes of nodes (recuresion) or leaves.
+   - If you want to be able to travese a group of things in a uniform way without making the client aware of the underlying types
+   - Safe composites are ones that can check the type(instance of) of the component to see if it can actually run a method on it. but this loses the transparity and makes the client aware of other types.
+   - nodes can also point to parents making two way traversal
+
+- Pro's con's
+
+   - Allows you to ignore the type and just run the operations on all elements
+   - If iterating over a large tree to find things, you could have performance issues (this could be mittigate with caching)
+   - If you need ordering you would need to think logic in the adding and removing of nodes
+	
+- Example
+
+```java
+
+	interface Boxable{ //the common interface that the client will use
+		void print();
+		void add(boxable box);
+		String getSize();
+		String getItemName();
+	}
+
+	class Box implements Boxable{
+		List<Boxable> boxes;
+		int size;
+		Box(int size){
+			this.size = size;
+			boxes = new arrayList<>();
+		}
+		void print(){
+			sout('im a box with size ' + getSize());
+			for(Boxable b : boxes){
+				b.print(); //recursive call that will call all boxes within as well as box items print()
+			}
+		}
+		void add(Boxable boxable){
+			this.boxes.add(boxable);
+		}
+		String getSize(){
+			return this.size;
+		}
+		String getItemName(){
+			throw new UnsupportedException();
+		}
+	}
+
+	class BoxItem implements Boxable{
+		String itemName;
+		BoxItem(String itemName){
+			this.itemName = itemName;
+		}
+		void print(){
+			sout('im a box item with name ' + getItemName());
+		}
+		void add(Boxable boxable){
+			throw new UnsupportedOpperation();
+		}
+		String getSize(){
+			throw new UnsupportedOpperation();
+		}
+		String getItemName(){
+			return this.itemName;
+		}
+	}
+	
+	class Client(){
+		static void main(){
+			Box mainBox = new Box(2);
+			Box box2 = new Box(1);
+			Box box3 = new Box(4);
+			Box box4 = new Box(10);
+			Box box5 = new Box(9000);
+
+			BoxItem item1 = new BoxItem('derp');
+			BoxItem item2 = new BoxItem('herp');
+			BoxItem item3 = new BoxItem('burp');
+
+			box2.add(item1);
+			box2.add(box3);
+			box2.add(box4);
+
+			box4.add(box5);
+
+			box5.add(item2);
+			box5.add(item3);
+
+			mainBox.add(box2);
+
+			mainBox.print();
+
+		}
+	}
+```
+
+
+
+
 
 
 
