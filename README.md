@@ -722,6 +722,7 @@
 		}
 		String getItemName(){
 			return this.itemName;
+
 		}
 	}
 	
@@ -752,6 +753,108 @@
 
 		}
 	}
+```
+
+### State Pattern
+- What is it? 
+
+   - A component that holds a single state but can interchange between many. By doing so will appear to change behaviour has it will be based on state
+   - Like the strategy pattern in that behaviour is encapsulated but the intent is that in the strategy pattern, the behaviour is typically locked at instantiation (doesn't mean it can't change at runtime) but state pattern the intent is that the state will be continually changing and therefore its behaviour.
+
+- How, when and why?
+
+   - A context will hold a single state but also a list of other states it can transition to. When runing a behaviour, the context will delegate to the current state.
+   - When delgation of behaviour occures, its either up to the context to transition to another state or the state itself. If the state chooses to transition, it will need a reference to the context (usually provided during instantiation) and use it's getters and setters to set the new state.
+   - All states will need to either implement the same Interface or abstract class 
+   - Use this pattern when you seem to be using alot of large if/else if/else statements that run behaviour depending on state.
+   - Using this pattern will help with the maintainability of the context, it allows you to implement new states relativly easily and keep classes focused on a singular responsibility.
+
+- Pro's con's
+
+   - Increaases the amount of classes / increase in complexity
+   - More maintainable
+   - More focus to one class one responsibility
+	
+- Example
+
+```java
+
+	interface State{
+		drinkManaPotion();
+		useMegaMagic();
+		useSmallMagic();
+	}
+
+	class NoManaState implements State{
+		Mage mage;
+		public NoManaState(Mage mage){this.mage = mage;}
+		drinkManaPotion(){
+			sout('mana restored')
+			this.mage.setState(this.mage.getFullManaState);
+		}
+		useMegaMagic(){
+			sout('no mana left, cant use mega magic')
+		}
+		useSmallMagic(){
+			sout('no mana left, cant use small magic')
+		}
+	}
+
+	class LowManaState implements State{
+		Mage mage;
+		public NoManaState(Mage mage){this.mage = mage;}
+		drinkManaPotion(){
+			sout('mana restored')
+			this.mage.setState(this.mage.getFullManaState);
+		}
+		useMegaMagic(){
+			sout('no mana left, cant use mega magic')
+		}
+		useSmallMagic(){
+			sout('uses small magic')
+			this.mage.setState(this.mage.getNoManaState);
+		}
+	}
+	class FullManaState implements State{
+		Mage mage;
+		public NoManaState(Mage mage){this.mage = mage;}
+		drinkManaPotion(){
+			sout('mana restored')
+			this.mage.setState(this.mage.getFullManaState);
+		}
+		useMegaMagic(){
+			sout('uses mega magic')
+			this.mage.setState(this.mage.getLowManaState);
+		}
+		useSmallMagic(){
+			sout('uses small magic')
+		}
+	}
+
+	class Mage {
+		State noManaState;
+		State lowManaState;
+		State fullManaState;
+
+		State currentState = fullManaState;
+
+		public Mage(){
+			noManaState = new NoManaState(this);
+			lowManaState = new LowManaState(this);
+			fullManaState = new FullManaState(this);
+		}
+		useMegaMagic(){
+			currenttate.useMegaMagic();
+		}
+		useSmallMagic(){
+			currentState.useSmallMagic();
+		}
+		drinkManaPotion(){
+			currentState.drinkManaPotion();
+		}
+
+	}
+	
 ```
 
 
