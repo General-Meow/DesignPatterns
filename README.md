@@ -857,7 +857,47 @@
 	
 ```
 
+### Proxy Pattern
+- What is it? 
 
+   - Provides a surrogate/placeholder for a real object for which it tries to control access to
+   - There are many different types of proxies out there, some of which are: remote (proxies to objects in another heap / another machine - Gumball remote calls), virtual (controls access to an object or resources that are expensive - CD image example), protection (controls access to an object using invocation handlers - Dating site to person object)
+   - Much like the Decorator pattern, in which the an object is composed but the intensions are different. Decorator adds behaviour but Proxy controls access
+   - Many more types of proxies exist, Caching proxy, COmplexity (Facade) proxy, copy on write, synchronization proxy
+
+- How, when and why?
+
+   - To create a Remote proxy, you can use Java's RMI (remote method invocation) to generate stubs (the local proxt) and skeletons (the recieving object on the other side of the network) to call methods on objects over the network on a seperate heap. 
+   -- To do this you would need to create an interface, an implementation to the interface, generate stub and skeleton using the java command "rmic", start the rmi registry, start the remote service.
+   -- Interface must extend the "Remote" interface from the java.rmi package
+   -- All methods on the interface must throw a RemoteException
+   -- method arguments and return types must all be serializable
+   -- The implementation to the interface must also extend the UnicastRemoteObject with a no arg constructor
+   -- Register the object of the implementation with the RMI Registry with Naming.rebind("theImplService", myImpl);
+   -- Use rmic on the implementation to generate the stub and skeleton
+
+   - Virtual proxies are placeholders that stand in for other objects that are typically expensive to create to use methods on
+   - The proxy needs to implement the same interface as the real object
+   - Compose the real object
+   - Do stuff when the implemented method is called but then will do the real call when available. This can typically be done via starting a new thread
+
+   - Protection proxies are supported out of the JDK using the java.lang reflect package.
+   - Like the Virtual proxy, you have a proxy that immplements the same interface as the real object but instead of composing the real object, you compose an Invocation habdler which holds the real object.
+   - Once a method is called on the proxy, it immediatly calls the Invocation handlers invoke method, with the proxy object, method name and method parameters
+   - The invoke method then uses these arguments to decide whether it should call a method on the real object that it holds
+
+   - You use this design pattern mainly to control access to another object
+
+- Pro's con's
+
+   - Like Decorators it can increase the amount of classes
+	
+- Example
+
+```java
+
+	
+```
 
 
 
