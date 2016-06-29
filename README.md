@@ -216,6 +216,9 @@
 
    - Loose coupling of the instantiated classes and they are created in the factory and use the interfaces of the types
    - Can be harder to read as object instances are hidden behind and interface or abstract class
+   - Have better/more meaningful names than constructors
+   - can return objects that are sub types of the constructor
+   - Having a class with no public or protected constructor cannot be subclassed
 		
 - Example
 ```java
@@ -891,12 +894,99 @@
 - Pro's con's
 
    - Like Decorators it can increase the amount of classes
+   - Many proxy types
+   - 
+	
+- Example
+
+```java
+:(
+	
+```
+
+
+### Telescoping pattern
+
+- What is it? 
+
+   - A pattern that uses multiple constructors with varying paramters, each setting a different or more private members
+   - Not used much anymore
+
+- How, when and why?
+
+   - Multiple constructors
+   - Use it when you have multiple optional variables that can be set
+
+- Pro's con's
+
+   - Can lead to maintenance issues
+   - Can easily forget what each parameter does
 	
 - Example
 
 ```java
 
+public class Recipe {
+	private boolean flour;
+	private boolean eggs;
+	private boolean water; 
+	private boolean sugarl
+	private boolean colouring;
+
+	public Recipe(boolean flour){};
+	public Recipe(boolean flour, boolean eggs){};
+	public Recipe(boolean flour, boolean eggs, boolean water){};
+	...//and so on
+}
 	
+```
+
+
+
+### Builder pattern
+
+- What is it? 
+
+   - Pattern that help construct objects with multiple properties
+   - Gives a nice concise way to create, validate and set properties
+
+- How, when and why?
+
+   - You will have 2 classes, the builder and the thing your trying to build (target)
+   - The builder will typically be an inner public class of the target
+   - The Target would typically have a private constructor so the builder can only create an instance for you
+   - the Target can also be immutable, so properties are final and you dont need to provider setters
+   - the Builder will always return itself after running a method
+   - the Builder will also provide a build method to construct the target with the properties it has received
+   - use it when you start using multiple constructors in the target class
+
+- Pro's con's
+
+   - Extra class to maintain
+	
+- Example
+
+```java
+public class Target
+{
+	private String param1;
+	private String param2;
+	private Target(Builder builder){
+		this.param1 = builder.param1;
+		this.param2 = builder.param2;
+	}
+
+	public class Builder{
+		private String param1;
+		private String param2;
+		public static getInstance(){ return new Builder();}
+		public Target build(){
+			return new Target(this);
+		}
+		public Builder param1(String param1){this.param1 = param1;}
+		public Builder param2(String param2){this.param2 = param2;}
+	}
+}
 ```
 
 
